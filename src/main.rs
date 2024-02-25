@@ -1,8 +1,9 @@
 use ethers::{
     core::rand,
-    signers::{coins_bip39::English, MnemonicBuilder},
+    signers::{coins_bip39::English, MnemonicBuilder, Signer},
 };
 use eyre::Result;
+use hex;
 
 fn main() -> Result<()> {
     // let phrase =
@@ -28,7 +29,11 @@ fn main() -> Result<()> {
         .write_to("./")
         .build_random(&mut rng)?;
 
+    let priv_key = hex::encode(wallet.signer().to_bytes());
+    let addr = wallet.address();
+
     eprintln!("Random wallet: {wallet:?}");
+    eprintln!("Privkey: {priv_key:?}");
 
     Ok(())
 }

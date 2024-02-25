@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 ethers = "2.0.13"
 eyre = "0.6.12"
+hex = "0.4.3"
