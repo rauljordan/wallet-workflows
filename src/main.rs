@@ -1,5 +1,5 @@
 use ethers::{
-    core::rand,
+    core::{rand, types::PathOrString},
     signers::{coins_bip39::English, MnemonicBuilder, Signer},
 };
 use eyre::Result;
@@ -15,7 +15,7 @@ fn main() -> Result<()> {
 
         // Access mnemonic phrase with derivation path: m/44'/60'/0'/0/{index}
         MnemonicBuilder::<English>::default()
-            .phrase(phrase)
+            .phrase(PathOrString::String(phrase.clone()))
             .index(index)?
             .build()?
     } else {
@@ -23,6 +23,7 @@ fn main() -> Result<()> {
         let mut rng = rand::thread_rng();
         MnemonicBuilder::<English>::default()
             .word_count(12)
+            .write_to("./")
             .derivation_path("m/44'/60'/0'/0/0")?
             .build_random(&mut rng)?
     };
